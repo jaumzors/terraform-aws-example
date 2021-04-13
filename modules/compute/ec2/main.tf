@@ -62,9 +62,9 @@ resource "aws_cloudwatch_metric_alarm" "default" {
   statistic           = local.alarms[count.index]["statistic"]
   threshold           = local.alarms[count.index]["threshold"]
   alarm_description   = local.alarms[count.index]["alarm_description"]
-  dimensions          = {
+  dimensions = {
     ec2_instance_id = aws_instance.default[count.index].id
     ec2_private_ip  = aws_instance.default[count.index].private_ip
   }
-  actions_enabled     = false
+  actions_enabled = false
 }

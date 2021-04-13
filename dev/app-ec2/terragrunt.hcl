@@ -63,11 +63,11 @@ inputs = {
   az                        = dependency.private_vpc.outputs.pvt_subnets_regions[1]
   key_name                  = "default"
   jump_box_sec_id           = [dependency.jumpbox.outputs.sec_group]
-  user_data                 = templatefile("./user_data.sh", {
+  user_data = templatefile("./user_data.sh", {
     app_external_port = local.common_vars.app_ec2_port
   })
-  ec2_alarms = templatefile("../../commons/templates/cloudwatch/alarms/ec2-alarms.yaml", {})
-  iam_role_name             = dependency.iam_role.outputs.role_name
+  ec2_alarms    = templatefile("../../commons/templates/cloudwatch/alarms/ec2-alarms.yaml", {})
+  iam_role_name = dependency.iam_role.outputs.role_name
   ingress_rules = [
     {
       from            = local.common_vars.app_ec2_alb_inbound_port

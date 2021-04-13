@@ -1,7 +1,7 @@
 locals {
 
   alarms = var.create_default_ec2_alarms ? {
-    for idx, alarm in var.ec2_alarms:
+    for idx, alarm in var.ec2_alarms :
     idx => {
       alarm_name : alarm["alarm_name"]
       comparison_operator : alarm["comparison_operator"]

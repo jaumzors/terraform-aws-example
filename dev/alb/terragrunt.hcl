@@ -46,7 +46,7 @@ inputs = {
     {
       id      = dependency.instances.outputs.instance_ids[0]
       tg_name = "front-end-http"
-      port    = 8080
+      port    = local.common_vars.app_ec2_alb_inbound_port
     }
   ]
 
@@ -61,7 +61,7 @@ inputs = {
   tg_groups = [
     {
       lb_tg_name     = "front-end-http"
-      lb_tg_port     = "8080"
+      lb_tg_port     = local.common_vars.app_ec2_alb_inbound_port
       lb_tg_protocol = "HTTP"
     }
   ]
