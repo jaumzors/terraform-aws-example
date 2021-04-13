@@ -1,3 +1,5 @@
 **/.terragrunt-cache
 **/.terraform
 **.terraform.lock*
+*backend.tf*
+*provider.tf*

@@ -32,7 +32,7 @@ inputs = {
 
   ingress_rules = [
     {
-      from        = "8080"
+      from        = "443"
       to          = "8080"
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
@@ -41,7 +41,7 @@ inputs = {
 
   egress_rules = [
     {
-      from        = "8080"
+      from        = "443"
       to          = "8080"
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]

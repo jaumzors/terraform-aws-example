@@ -24,3 +24,7 @@ terragrunt apply-all
 # AWS Architecture
 
 ![AWS](/imgs/aws.png)
+
+# Know limitations
+
+- Using random_shuffle for selecting the AZs may lead to a situation where the same AZ is used for both private and public subnets. This will cause an error on ALB (cannot use the same az for pub and pvt subnets), if this happens: `terragrunt destroy-all` then `terragrunt apply-all` again.

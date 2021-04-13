@@ -52,7 +52,7 @@ inputs = {
 
   listeners = [
     {
-      port     = "8080"
+      port     = "443"
       protocol = "HTTP"
       tg_name  = "front-end-http"
     }

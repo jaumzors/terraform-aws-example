@@ -76,6 +76,12 @@ inputs = {
       security_groups = dependency.sg.outputs.sg_ids
     },
     {
+      from            = 443
+      to              = 8080
+      cidr_blocks     = []
+      security_groups = dependency.sg.outputs.sg_ids
+    },
+    {
       from            = 22
       to              = 22
       cidr_blocks     = []
@@ -86,6 +92,12 @@ inputs = {
     {
       from            = local.common_vars.app_ec2_alb_inbound_port
       to              = local.common_vars.app_ec2_port
+      cidr_blocks     = []
+      security_groups = dependency.sg.outputs.sg_ids
+    },
+    {
+      from            = 443
+      to              = 8080
       cidr_blocks     = []
       security_groups = dependency.sg.outputs.sg_ids
     },
