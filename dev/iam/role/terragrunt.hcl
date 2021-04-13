@@ -13,7 +13,7 @@ locals {
 
 inputs = {
   role_name          = "app-ec2-cw-agent-role"
-  policy_arn          = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+  policy_arn         = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
   assume_role_policy = local.assume_policy_document
   env                = local.common_vars.env
 }

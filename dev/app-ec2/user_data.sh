@@ -1,5 +1,7 @@
 #!/bin/bash
 
+apt-get update -y
+apt-get install -y wget
 curl -sSl https://get.docker.com/ | bash -s
 wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
 dpkg -i -E ./amazon-cloudwatch-agent.deb
@@ -42,4 +44,6 @@ EOF
 usermod -aG docker ubuntu
 
 su ubuntu
-docker run -d -p ${app_external_port}:80 nginx
+wget https://github.com/jaumzors/static-webpages-test/blob/master/index.html
+cd static-webpages-test
+docker run -d -p ${app_external_port}:80 --restart always -v \$\{PWD\}:/usr/share/nginx/html:ro nginx

@@ -33,18 +33,13 @@ resource "aws_iam_instance_profile" "default" {
   role  = var.iam_role_name
 }
 
-data "template_file" "default" {
-  template = var.user_data != "" ? var.user_data : null
-  vars     = var.user_data != "" ? var.user_data_config : null
-}
-
 resource "aws_instance" "default" {
   count                = var.num_of_instances
   ami                  = var.ami_id
   instance_type        = var.instance_type
   key_name             = var.key_name
   availability_zone    = var.az
-  user_data            = var.user_data != "" ? data.template_file.default.rendered : null
+  user_data            = var.user_data != "" ? var.user_data : null
   iam_instance_profile = var.iam_role_name != "" ? aws_iam_instance_profile.default[0].name : null
 
   subnet_id       = var.subnet_id
@@ -54,4 +49,22 @@ resource "aws_instance" "default" {
     Name = "${var.ec2_name}_${count.index}"
     Env  = var.env
   }
+}
+
+resource "aws_cloudwatch_metric_alarm" "default" {
+  count               = var.create_default_ec2_alarms ? var.num_of_instances : 0
+  alarm_name          = local.alarms[count.index]["alarm_name"]
+  comparison_operator = local.alarms[count.index]["comparison_operator"]
+  evaluation_periods  = local.alarms[count.index]["evaluation_periods"]
+  metric_name         = local.alarms[count.index]["metric_name"]
+  namespace           = local.alarms[count.index]["namespace"]
+  period              = local.alarms[count.index]["period"]
+  statistic           = local.alarms[count.index]["statistic"]
+  threshold           = local.alarms[count.index]["threshold"]
+  alarm_description   = local.alarms[count.index]["alarm_description"]
+  dimensions          = {
+    ec2_instance_id = aws_instance.default[count.index].id
+    ec2_private_ip  = aws_instance.default[count.index].private_ip
+  }
+  actions_enabled     = false
 }

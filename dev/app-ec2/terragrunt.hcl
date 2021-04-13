@@ -50,23 +50,24 @@ dependency "iam_role" {
 }
 
 inputs = {
-  num_of_instances = 1
-  ec2_name         = "app-ec2"
-  env              = local.common_vars.env
-  subnet_id        = dependency.private_vpc.outputs.private_subnets[1]
-  vpc_id           = dependency.private_vpc.outputs.vpc_id
-  ssh_private_key  = "/home/senf/Downloads/default.pem"
-  instance_type    = "t2.micro"
-  vpc_cidr         = split(", ", dependency.private_vpc.outputs.cidr_block)
-  ami_id           = "ami-00ddb0e5626798373"
-  az               = dependency.private_vpc.outputs.pvt_subnets_regions[1]
-  key_name         = "default"
-  jump_box_sec_id  = [dependency.jumpbox.outputs.sec_group]
-  user_data        = file("./user_data.sh")
-  iam_role_name    = dependency.iam_role.outputs.role_name
-  user_data_config = {
+  num_of_instances          = 1
+  create_default_ec2_alarms = true
+  ec2_name                  = "app-ec2"
+  env                       = local.common_vars.env
+  subnet_id                 = dependency.private_vpc.outputs.private_subnets[1]
+  vpc_id                    = dependency.private_vpc.outputs.vpc_id
+  ssh_private_key           = "/home/senf/Downloads/default.pem"
+  instance_type             = "t2.micro"
+  vpc_cidr                  = split(", ", dependency.private_vpc.outputs.cidr_block)
+  ami_id                    = "ami-00ddb0e5626798373"
+  az                        = dependency.private_vpc.outputs.pvt_subnets_regions[1]
+  key_name                  = "default"
+  jump_box_sec_id           = [dependency.jumpbox.outputs.sec_group]
+  user_data                 = templatefile("./user_data.sh", {
     app_external_port = local.common_vars.app_ec2_port
-  }
+  })
+  ec2_alarms = templatefile("../../commons/templates/cloudwatch/alarms/ec2-alarms.yaml", {})
+  iam_role_name             = dependency.iam_role.outputs.role_name
   ingress_rules = [
     {
       from            = local.common_vars.app_ec2_alb_inbound_port

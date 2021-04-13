@@ -1,0 +1,25 @@
+${jsonencode(
+[
+  {
+    "alarm_name": "app-ec2-25-percent-cpu-usage",
+    "comparison_operator": "GreaterThanOrEqualToThreshold",
+    "evaluation_periods": 2,
+    "metric_name": "CPUUtilization",
+    "namespace": "AWS/EC2",
+    "period": 60,
+    "statistic": "Average",
+    "threshold": 25,
+    "alarm_description": "App-ec2 cpu usage is above 25pc for 2 minutes"
+  },
+  {
+    "alarm_name": "app-ec2-25-percent-cpu-usage",
+    "comparison_operator": "GreaterThanOrEqualToThreshold",
+    "evaluation_periods": 2,
+    "metric_name": "mem_used_percent",
+    "namespace": "CWAgent",
+    "period": 60,
+    "statistic": "Average",
+    "threshold": 25,
+    "alarm_description": "App-ec2 mem usage is above 25pc for 2 minutes"
+  }
+])}

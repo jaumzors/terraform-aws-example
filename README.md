@@ -21,3 +21,6 @@ cd terraform-aws-example/dev
 terragrunt apply-all
 ```
 
+# AWS Architecture
+
+![AWS](/imgs/aws.png)

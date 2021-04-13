@@ -79,12 +79,27 @@ variable "user_data" {
   default = ""
 }
 
-variable "user_data_config" {
-  type    = any
-  default = null
-}
-
 variable "iam_role_name" {
   type    = string
   default = ""
+}
+
+variable "create_default_ec2_alarms" {
+  type    = bool
+  default = false
+}
+
+variable "ec2_alarms" {
+  type = list(object({
+    alarm_name          = string
+    comparison_operator = string
+    evaluation_periods  = string
+    metric_name         = string
+    namespace           = string
+    period              = string
+    statistic           = string
+    threshold           = string
+    alarm_description   = string
+  }))
+  default = []
 }

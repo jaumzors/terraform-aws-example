@@ -2,6 +2,10 @@ output "public_ip" {
   value = [for instance in aws_instance.default : instance.public_ip]
 }
 
+output "private_ip" {
+  value = [for instance in aws_instance.default : instance.private_ip]
+}
+
 output "sec_group" {
   value = aws_security_group.default.id
 }
